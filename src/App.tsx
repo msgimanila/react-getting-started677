@@ -2,47 +2,69 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
 
-export default function App() {
-  const [name, setName] = useState("");
-  const [response, setResponse] = useState("");
+ function App() {
+  const [weight, setWeight] = useState('');
+  const [height, setHeight] = useState('');
+  const [bmi, setBmi] = useState(null);
+  const [category, setCategory] = useState('');
 
-  async function sayHello() {
-    setResponse(`Hello, ${name}!`);
-  }
+  const calculateBMI = () => {
+    if (weight && height) {
+      // Calculate BMI
+      const bmiValue = (weight / (height * height)).toFixed(2);
+      setBmi(bmiValue);
+
+      // Determine BMI category
+      if (bmiValue < 18.5) {
+        setCategory('Underweight');
+      } else if (bmiValue >= 18.5 && bmiValue <= 24.9) {
+        setCategory('Normal weight');
+      } else if (bmiValue >= 25 && bmiValue <= 29.9) {
+        setCategory('Overweight');
+      } else {
+        setCategory('Obesity');
+      }
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://genezio.com" target="_blank">
-          <img
-            src="https://raw.githubusercontent.com/Genez-io/graphics/main/svg/Logo_Genezio_White.svg"
-            className="logo genezio light"
-            alt="Genezio Logo"
-          />
-          <img
-            src="https://raw.githubusercontent.com/Genez-io/graphics/main/svg/Logo_Genezio_Black.svg"
-            className="logo genezio dark"
-            alt="Genezio Logo"
-          />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Genezio + React = ❤️</h1>
-      <div className="card">
-        <input
-          type="text"
-          className="input-box"
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Enter your name"
-        />
-        <br />
-        <br />
+    <div className="App">
+      <div className="container">
+        <h1>BMI Calculator</h1>
+        <div className="input-container">
+          <div>
+            <label>Weight (kg):</label>
+            <input
+              type="number"
+              value={weight}
+              onChange={(e) => setWeight(e.target.value)}
+              placeholder="Enter weight"
+            />
+          </div>
 
-        <button onClick={() => sayHello()}>Say Hello</button>
-        <p className="read-the-docs">{response}</p>
+          <div>
+            <label>Height (m):</label>
+            <input
+              type="number"
+              step="0.01"
+              value={height}
+              onChange={(e) => setHeight(e.target.value)}
+              placeholder="Enter height"
+            />
+          </div>
+        </div>
+
+        <button onClick={calculateBMI} className="calculate-btn">
+          Calculate BMI
+        </button>
+
+        {bmi && (
+          <div className="result">
+            <h3>Your BMI: {bmi}</h3>
+            <h4>Category: {category}</h4>
+          </div>
+        )}
       </div>
-    </>
+    </div>
   );
 }
