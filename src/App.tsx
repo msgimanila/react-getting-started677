@@ -1,25 +1,26 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
 import "./App.css";
 
- function App() {
-  const [weight, setWeight] = useState('');
-  const [height, setHeight] = useState('');
-  const [bmi, setBmi] = useState(null);
-  const [category, setCategory] = useState('');
+function App() {
+  const [weight, setWeight] = useState<string>(''); // Weight should be a string
+  const [height, setHeight] = useState<string>(''); // Height should be a string
+  const [bmi, setBmi] = useState<string | null>(null); // BMI can be string or null
+  const [category, setCategory] = useState<string>(''); // Category is a string
 
   const calculateBMI = () => {
     if (weight && height) {
-      // Calculate BMI
-      const bmiValue = (weight / (height * height)).toFixed(2);
+      // Convert weight and height to numbers and calculate BMI
+      const weightNum = parseFloat(weight);
+      const heightNum = parseFloat(height);
+      const bmiValue = (weightNum / (heightNum * heightNum)).toFixed(2);
       setBmi(bmiValue);
 
       // Determine BMI category
-      if (bmiValue < 18.5) {
+      if (parseFloat(bmiValue) < 18.5) {
         setCategory('Underweight');
-      } else if (bmiValue >= 18.5 && bmiValue <= 24.9) {
+      } else if (parseFloat(bmiValue) >= 18.5 && parseFloat(bmiValue) <= 24.9) {
         setCategory('Normal weight');
-      } else if (bmiValue >= 25 && bmiValue <= 29.9) {
+      } else if (parseFloat(bmiValue) >= 25 && parseFloat(bmiValue) <= 29.9) {
         setCategory('Overweight');
       } else {
         setCategory('Obesity');
@@ -68,3 +69,5 @@ import "./App.css";
     </div>
   );
 }
+
+export default App;
