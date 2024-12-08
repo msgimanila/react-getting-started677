@@ -19,7 +19,10 @@
   max-width: 400px;
   text-align: center;
 }
-
+body {
+  background: rgb(80,88,227);
+background: linear-gradient(143deg, rgba(80,88,227,1) 0%, rgba(64,61,240,1) 100%);
+}
 /* Heading styling */
 h1 {
   color: #4caf50;
