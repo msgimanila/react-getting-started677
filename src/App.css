@@ -1,7 +1,8 @@
 /* General styling */
 .App {
   font-family: 'Arial', sans-serif;
-  background-color: #f4f7fa;
+  background: rgb(80,88,227);
+background: linear-gradient(143deg, rgba(80,88,227,1) 0%, rgba(64,61,240,1) 100%);
   display: flex;
   justify-content: center;
   align-items: center;
